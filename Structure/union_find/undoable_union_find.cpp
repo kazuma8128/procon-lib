@@ -26,7 +26,7 @@ public:
 	}
 };
 
-// undoable unon find
+// undoable union find
 class rUnionFind {
 	rArray<int> data;
 	vector<int> pre;
