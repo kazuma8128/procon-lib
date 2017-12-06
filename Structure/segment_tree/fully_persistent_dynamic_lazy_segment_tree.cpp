@@ -78,39 +78,6 @@ public:
 	}
 };
 
-int main()
-{
-	cin.sync_with_stdio(false);
-	cin.tie(0);
-	ll N, M, Q;
-	cin >> N >> M >> Q;
-	vector<tuple<int, int, int>> vab(M);
-	for (int i = 0; i < M; i++) {
-		cin >> get<1>(vab[i]) >> get<2>(vab[i]) >> get<0>(vab[i]); get<1>(vab[i])--; get<2>(vab[i])--;
-	}
-	sort(vab.begin(), vab.end());
-	SaikyoSegmentTree<ll> sst(N, 0);
-	for (int i = 0; i < M; i++) {
-		sst.add(get<1>(vab[i]), get<2>(vab[i]), 1);
-	}
-	ll x, y, j;
-	while (Q--) {
-		cin >> x >> y >> j; x--; y--;
-		ll l = 0, r = M;
-		while(l + 1 < r) {
-			ll c = (l + r) / 2;
-			if (sst.find(x, y, c) >= j) {
-				r = c;
-			}
-			else {
-				l = c;
-			}
-		}
-		printf("%d\n", get<0>(vab[r - 1]));
-	}
-	return 0;
-}
-
 // generalized
 using ll = long long;
 
