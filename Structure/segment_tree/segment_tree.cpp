@@ -11,6 +11,19 @@ struct RSQ {
 	static type op(const type& l, const type & r) { return l + r; }
 };
 
+struct RMSQ {
+	struct type {
+		ll left, right, all, sum;
+		type() : left(-INF), right(-INF), all(-INF), sum(0) {}
+		type(ll val) : left(val), right(val), all(val), sum(val) {}
+		type(ll l, ll r, ll a, ll s) : left(l), right(r), all(a), sum(s) {}
+	};
+	static type id() { return type(); }
+	static type op(const type& l, const type & r) {
+		return type(max(l.left, l.sum + r.left), max(r.right, r.sum + l.right), max({ l.all, r.all, l.right + r.left }), l.sum + r.sum);
+	}
+};
+
 // segment tree
 template <typename M>
 class SegmentTree {
