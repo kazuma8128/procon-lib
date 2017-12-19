@@ -62,6 +62,35 @@ struct RURMQ {
 	static type op2(const type& l, const type & r) { return r != -1 ? r : l; }
 };
 
+struct RURMS {
+	static const ll INF = 1e17;
+	struct type {
+		ll left, right, all, sum, size;
+		type() : left(-INF), right(-INF), all(-INF), sum(0), size(0) {}
+		type(ll val) : left(val), right(val), all(val), sum(val), size(1) {}
+		type(ll l, ll r, ll a, ll s, ll si) : left(l), right(r), all(a), sum(s), size(si) {}
+		bool operator==(const type& r) const {
+			return left == r.left && right == r.right && all == r.all && sum == r.sum && size == r.size;
+		}
+	};
+	static type id1() { return type(); }
+	static type id2() { return type(-INF, -INF, -INF, -INF, -1); }
+	static type op1(const type& l, const type & r) {
+		return type(max(l.left, l.sum + r.left), max(r.right, r.sum + l.right), max({ l.all, r.all, l.right + r.left }), l.sum + r.sum, l.size + r.size);
+	}
+	static type op2(const type& l, const type & r) {
+		if (r == id2()) return l;
+		if (l.size < 0) return r;
+		ll val = r.all;
+		if (val > 0) {
+			return type(val * l.size, val * l.size, val * l.size, val * l.size, l.size);
+		}
+		else {
+			return type(val, val, val, val * l.size, l.size);
+		}
+	}
+};
+
 template <typename M>
 class lSegmentTree {
 	using T = typename M::type;
@@ -104,6 +133,13 @@ class lSegmentTree {
 	}
 public:
 	lSegmentTree(int n_) : n(size(n_)), data(n * 2, M::id1()), lazy(n * 2, M::id2()) {}
+	void init(const vector<T>& data_) {
+		for (int i = 0; i < (int)data_.size(); i++)
+			data[i + n] = data_[i];
+		for (int i = n - 1; i >= 0; i--)
+			data[i] = M::op1(data[i * 2], data[i * 2 + 1]);
+		fill(lazy.begin(), lazy.end(), M::id2());
+	}
 	void update(int l, int r, T val) {
 		suc(l, r + 1, 1, 0, n, val);
 	}
