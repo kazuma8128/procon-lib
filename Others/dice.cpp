@@ -2,8 +2,6 @@
 using pii = pair<int, int>;
 
 // faces are numbered 0:top, 1:front, 2:right, 3:left, 4:back, 5:bottom
-using pii = pair<int, int>;
-
 struct dice {
 	vector<pii> x;
 	dice(int x_[6] = (int[]) { 1, 2, 3, 4, 5, 6 }) : x(3) {
