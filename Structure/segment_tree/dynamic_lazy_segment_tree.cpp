@@ -7,8 +7,8 @@ class node {
 public:
 	node<T> *l, *r;
 	T val, add;
-	node(T val_ = 0, node<T>* l_ = nullptr, node<T>* r_ = nullptr) :
-		l(l_), r(r_), val(val_), add(0) {}
+	node(T val_ = 0, node<T>* l_ = nullptr, node<T>* r_ = nullptr)
+		: l(l_), r(r_), val(val_), add(0) {}
 };
 
 template <typename T>
@@ -21,33 +21,26 @@ class RARS {
 		return res;
 	}
 	T sub(ll l, ll r, node<T>* n, ll lb, ll ub) {
-		if (ub <= l || r <= lb) return 0;
+		if (!n || ub <= l || r <= lb) return 0;
 		if (l <= lb && ub <= r) return n->val + n->add * (ub - lb);
-		return n->add * (min(r, ub) - max(l, lb)) + (n->l != nullptr ? sub(l, r, n->l, lb, (lb + ub) / 2) : 0) + (n->r != nullptr ? sub(l, r, n->r, (lb + ub) / 2, ub) : 0);
+		return sub(l, r, n->l, lb, (lb + ub) / 2) + sub(l, r, n->r, (lb + ub) / 2, ub) + n->add * (min(r, ub) - max(l, lb));
 	}
-	void suc(ll l, ll r, node<T>* n, ll lb, ll ub, T val) {
-		if (ub <= l || r <= lb) return;
+	node<T>* suc(ll l, ll r, node<T>* n, ll lb, ll ub, T val) {
+		if (ub <= l || r <= lb) return n;
+		if (!n) n = new node<T>;
 		if (l <= lb && ub <= r) {
 			n->add += val;
-			return;
+			return n;
 		}
 		n->val += val * (min(r, ub) - max(l, lb));
-		if (n->l == nullptr) {
-			n->l = new node<T>();
-		}
-		if (n->r == nullptr) {
-			n->r = new node<T>();
-		}
-		suc(l, r, n->l, lb, (lb + ub) / 2, val);
-		suc(l, r, n->r, (lb + ub) / 2, ub, val);
+		n->l = suc(l, r, n->l, lb, (lb + ub) / 2, val);
+		n->r = suc(l, r, n->r, (lb + ub) / 2, ub, val);
+		return n;
 	}
 public:
-	RARS(ll n_) :
-		n(size(n_)) {
-		root = new node<T>();
-	}
+	RARS(ll n_) : n(size(n_)), root(nullptr) {}
 	void add(ll l, ll r, T val) {
-		suc(l, r + 1, root, 0, n, val);
+		root = suc(l, r + 1, root, 0, n, val);
 	}
 	T getSum(ll l, ll r) {
 		return sub(l, r + 1, root, 0, n);
