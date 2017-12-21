@@ -1,4 +1,5 @@
 
+// normal
 struct RMQ {
 	using type = int;
 	static type id() { return 0; }
@@ -38,5 +39,61 @@ public:
 	}
 	T find(int l, int r) {
 		return sub(l, r + 1, 1, 0, n);
+	}
+};
+
+// dynamic
+using ll = long long;
+
+struct RMQ {
+	using type = int;
+	static type id() { return INT_MAX; }
+	static type op(const type& l, const type & r) { return min(l, r); }
+};
+
+template <typename M>
+class node {
+	using T = typename M::type;
+public:
+	T val, add;
+	node<M> *l, *r;
+	node() : val(), add(), l(nullptr), r(nullptr) {}
+};
+
+template <typename M>
+class StarrySkyTree {
+	using T = typename M::type;
+	const ll n;
+	node<M> *root;
+	ll size(ll n) {
+		ll res = 1;
+		while (res < n) res <<= 1ll;
+		return res;
+	}
+	T sub(ll l, ll r, node<M> *n, ll lb, ll ub) {
+		if (ub <= l || r <= lb) return M::id();
+		if (!n) return T();
+		if (l <= lb && ub <= r) return n->val + n->add;
+		return M::op(sub(l, r, n->l, lb, (lb + ub) / 2), sub(l, r, n->r, (lb + ub) / 2, ub)) + n->add;
+	}
+	node<M>* suc(ll l, ll r, node<M> *n, ll lb, ll ub, T val) {
+		if (ub <= l || r <= lb) return n;
+		if (!n) n = new node<M>;
+		if (l <= lb && ub <= r) {
+			n->add += val;
+			return n;
+		}
+		n->l = suc(l, r, n->l, lb, (lb + ub) / 2, val);
+		n->r = suc(l, r, n->r, (lb + ub) / 2, ub, val);
+		n->val = M::op(n->l ? n->l->val + n->l->add : T(), n->r ? n->r->val + n->r->add : T());
+		return n;
+	}
+public:
+	StarrySkyTree(ll n_) : n(size(n_)), root(nullptr) {}
+	void add(ll l, ll r, T val) {
+		root = suc(l, r + 1, root, 0, n, val);
+	}
+	T find(ll l, ll r) {
+		return sub(l, r + 1, root, 0, n);
 	}
 };
