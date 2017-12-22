@@ -1,13 +1,4 @@
 
-using ll = long long;
-
-const function<int(int, int)> sumQ = [](int l, int r) { return l + r; };
-const function<int(int, int)> minQ = [](int l, int r) { return min(l, r); };
-const function<int(int, int)> maxQ = [](int l, int r) { return max(l, r); };
-const function<ll(ll, ll)> sumQll = [](ll l, ll r) { return l + r; };
-const function<ll(ll, ll)> minQll = [](ll l, ll r) { return min(l, r); };
-const function<ll(ll, ll)> maxQll = [](ll l, ll r) { return max(l, r); };
-
 // merge sort tree (?)
 template <typename T>
 class MergeTree {
