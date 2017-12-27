@@ -1,5 +1,4 @@
 
-// offline query
 using pii = pair<int, int>;
 
 template<typename T>
