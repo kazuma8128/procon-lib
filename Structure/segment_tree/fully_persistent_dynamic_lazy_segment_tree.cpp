@@ -1,7 +1,7 @@
 
 // range add and range sum
 using ll = long long;
-const int PMAX = 10000000;
+const int PMAX = 1e7;
 
 template <typename T>
 struct node {
@@ -81,21 +81,26 @@ public:
 // generalized
 using ll = long long;
 
-struct RMQ {
-	using type = int;
-	static type id1() { return INT_MAX; }
-	static type id2() { return -1; }
-	static type op1(const type& l, const type & r) { return min(l, r); }
-	static type op2(const type& l, const type & r) { return r != -1 ? r : l; }
+struct RURM {
+	using t1 = int;
+	using t2 = int;
+	static t1 id1() { return INT_MAX; }
+	static t2 id2() { return -1; }
+	static t1 op1(const t1& l, const t1& r) { return min(l, r); }
+	static t1 op2(const t1& l, const t2& r) { return r != id2() ? r : l; }
+	static t2 op3(const t2& l, const t2& r) { return r != id2() ? r : l; }
 };
 
-template <typename T>
+template <typename M>
 class node {
+	using T1 = typename M::t1;
+	using T2 = typename M::t2;
 public:
-	T val, lazy;
-	node<T> *l, *r;
+	T1 val;
+	T2 lazy;
+	node<M> *l, *r;
 	node() {}
-	void init(T val_, T lazy_, node<T>* l_ = nullptr, node<T>* r_ = nullptr) {
+	void init(T1 val_, T2 lazy_, node<M>* l_ = nullptr, node<M>* r_ = nullptr) {
 		val = val_;
 		lazy = lazy_;
 		l = l_;
@@ -105,76 +110,75 @@ public:
 
 template <typename M>
 class SaikyoSegmentTree {
-	using T = typename M::type;
+	using T1 = typename M::t1;
+	using T2 = typename M::t2;
 	const ll n;
-	vector<node<T>*> root;
-	vector<node<T>> pool;
+	vector<node<M>*> root;
+	vector<node<M>> pool;
 	int it;
 	ll size(ll n) {
 		ll res = 1;
 		while (res < n) res <<= 1;
 		return res;
 	}
-	node<T> *new_node() {
+	node<M> *new_node() {
 		pool[it].init(M::id1(), M::id2());
 		return &pool[it++];
 	}
-	node<T> *fix(node<T> *t) {
+	node<M> *fix(node<M> *t) {
 		pool[it] = *t;
 		return &pool[it++];
 	}
-	node<T> *push(node<T> *t, ll lb, ll ub) {
+	node<M> *push(node<M> *t, ll lb, ll ub) {
 		t = fix(t);
 		if (lb + 1 < ub) {
 			if (t->l == nullptr) t->l = new_node();
 			else t->l = fix(t->l);
 			if (t->r == nullptr) t->r = new_node();
 			else t->r = fix(t->r);
-			t->l->lazy = M::op2(t->l->lazy, t->lazy);
-			t->r->lazy = M::op2(t->r->lazy, t->lazy);
+			t->l->lazy = M::op3(t->l->lazy, t->lazy);
+			t->r->lazy = M::op3(t->r->lazy, t->lazy);
 		}
 		t->val = M::op2(t->val, t->lazy);
 		t->lazy = M::id2();
 		return t;
 	}
-	node<T> *suc(ll l, ll r, node<T> *t, ll lb, ll ub, T val) {
+	node<M> *suc(ll l, ll r, node<M> *t, ll lb, ll ub, T2 val) {
 		if (ub <= l || r <= lb) return t;
 		if (t == nullptr) t = new_node();
 		if (l <= lb && ub <= r) {
-			t->lazy = M::op2(t->lazy, val);
+			t->lazy = M::op3(t->lazy, val);
 			return t;
 		}
 		t = push(t, lb, ub);
-		int c = (lb + ub) / 2;
-		t->l = suc(l, r, t->l, lb, c, val);
-		t->r = suc(l, r, t->r, c, ub, val);
+		t->l = suc(l, r, t->l, lb, (lb + ub) / 2, val);
+		t->r = suc(l, r, t->r, (lb + ub) / 2, ub, val);
 		t->val = M::op1(t->l == nullptr ? M::id1() : M::op2(t->l->val, t->l->lazy), t->r == nullptr ? M::id1() : M::op2(t->r->val, t->r->lazy));
 		return t;
 	}
-	node<T> *sub(ll l, ll r, node<T> *t, ll lb, ll ub, T& res) {
+	node<M> *sub(ll l, ll r, node<M> *t, ll lb, ll ub, T1& res) {
 		if (t == nullptr || ub <= l || r <= lb) return t;
-		t = push(t, lb, ub);
 		if (l <= lb && ub <= r) {
-			res = M::op1(res, t->val);
+			res = M::op1(res, M::op2(t->val, t->lazy));
 			return t;
 		}
-		int c = (lb + ub) / 2;
-		t->l = sub(l, r, t->l, lb, c, res);
-		t->r = sub(l, r, t->r, c, ub, res);
+		t = push(t, lb, ub);
+		t->l = sub(l, r, t->l, lb, (lb + ub) / 2, res);
+		t->r = sub(l, r, t->r, (lb + ub) / 2, ub, res);
 		return t;
 	}
 public:
-	SaikyoSegmentTree(ll n_, int PMAX = 2e7)
+	SaikyoSegmentTree(ll n_, int PMAX = 1e7)
 		: n(size(n_)), root(1, nullptr), pool(PMAX), it(0) {}
-	void update(ll l, ll r, T val, int rt = -1) {
+	void update(ll l, ll r, T2 val, int rt = -1) {
 		if (rt == -1) rt = root.size() - 1;
 		assert(0 <= rt && rt < (int)root.size());
 		root.push_back(suc(l, r + 1, root[rt], 0, n, val));
 	}
-	T find(ll l, ll r, int rt = -1) {
+	T1 find(ll l, ll r, int rt = -1) {
 		if (rt == -1) rt = root.size() - 1;
 		assert(0 <= rt && rt < (int)root.size());
-		T res = M::id1();
+		T1 res = M::id1();
 		root.push_back(sub(l, r + 1, root[rt], 0, n, res));
 		return res;
 	}
