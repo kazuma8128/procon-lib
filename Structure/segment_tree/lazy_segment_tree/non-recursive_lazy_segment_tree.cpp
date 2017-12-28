@@ -21,8 +21,8 @@ class LazySegmentTree {
 public:
 	LazySegmentTree(int n_)
 		: h(ceil(log2(n_))), n(1 << h), data(n * 2, M::id1()), lazy(n * 2, M::id2()) {}
-	LazySegmentTree(int n_, T1 v1, T2 v2)
-		: h(ceil(log2(n_))), n(1 << h), data(n * 2, v1), lazy(n * 2, v2) {}
+	LazySegmentTree(int n_, T1 v1)
+		: h(ceil(log2(n_))), n(1 << h), data(n * 2, v1), lazy(n * 2, M::id2()) {}
 	LazySegmentTree(const vector<T1>& data_)
 		: h(ceil(log2(data_.size()))), n(1 << h), data(n * 2, M::id1()), lazy(n * 2, M::id2()) {
 		init(data_);
