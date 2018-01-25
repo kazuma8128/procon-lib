@@ -35,9 +35,8 @@ class LazySegmentTree {
 	T1 sub(int l, int r, int node, int lb, int ub) {
 		if (ub <= l || r <= lb) return M::id1();
 		if (l <= lb && ub <= r) return M::op2(data[node], lazy[node]);
-		push(node);
 		int c = (lb + ub) / 2;
-		return M::op1(sub(l, r, node * 2, lb, c), sub(l, r, node * 2 + 1, c, ub));
+		return M::op2(M::op1(sub(l, r, node * 2, lb, c), sub(l, r, node * 2 + 1, c, ub)), lazy[node]);
 	}
 public:
 	LazySegmentTree(int n_) : n(size(n_)), data(n * 2, M::id1()), lazy(n * 2, M::id2()) {}
