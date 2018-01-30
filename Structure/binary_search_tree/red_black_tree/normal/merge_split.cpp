@@ -1,5 +1,4 @@
 
-// merge/split
 using T = int;
 const T id = INT_MAX;
 T op(T l, T r) {
