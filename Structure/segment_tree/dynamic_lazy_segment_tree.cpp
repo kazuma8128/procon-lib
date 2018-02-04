@@ -109,7 +109,7 @@ class DynamicLazySegmentTree {
 			return t;
 		}
 		t = push(t, lb, ub);
-		int c = (lb + ub) / 2;
+		ll c = (lb + ub) / 2;
 		t->l = suc(l, r, t->l, lb, c, val);
 		t->r = suc(l, r, t->r, c, ub, val);
 		t->val = M::op1(t->l == nullptr ? M::id1() : M::op2(t->l->val, t->l->lazy), t->r == nullptr ? M::id1() : M::op2(t->r->val, t->r->lazy));
@@ -119,7 +119,7 @@ class DynamicLazySegmentTree {
 		if (t == nullptr || ub <= l || r <= lb) return M::id1();
 		t = push(t, lb, ub);
 		if (l <= lb && ub <= r) return t->val;
-		int c = (lb + ub) / 2;
+		ll c = (lb + ub) / 2;
 		return M::op1(sub(l, r, t->l, lb, c), sub(l, r, t->r, c, ub));
 	}
 public:
