@@ -2,7 +2,7 @@
 using COL = bool;
 const COL RED = false, BLACK = true;
 
-class FID {
+class fid {
 
 	struct node {
 		COL color;
@@ -128,7 +128,7 @@ class FID {
 
 public:
 
-	FID() : NIL(new node()), root(NIL) {}
+	fid() : NIL(new node()), root(NIL) {}
 	int size() const {
 		return root->size;
 	}
@@ -411,7 +411,7 @@ template <typename T>
 class dynamic_wavelet_matrix {
 	T h;
 	red_black_tree<T> all;
-	vector<FID> data;
+	vector<fid> data;
 	vector<int> mid;
 
 public:

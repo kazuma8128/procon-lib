@@ -19,7 +19,7 @@ node<int> pool[PMAX];
 int it;
 
 template <typename T>
-class pArray {
+class persistent_array {
 	const int n;
 	const T id;
 	vector<node<T>*> root;
@@ -47,8 +47,8 @@ class pArray {
 		return p < c ? sub(x->l, p, lb, c) : sub(x->r, p, c, ub);
 	}
 public:
-	pArray(int n_, T id_ = 0) : n(size(n_)), id(id_), root(1, nullptr) {}
-	pArray(const vector<T>& v, T id_ = 0) : n(size(v.size())), id(id_), root(1, nullptr) {}
+	persistent_array(int n_, T id_ = 0) : n(size(n_)), id(id_), root(1, nullptr) {}
+	persistent_array(const vector<T>& v, T id_ = 0) : n(size(v.size())), id(id_), root(1, nullptr) {}
 	T update(int p, T val, int rt = -1) {
 		if (rt == -1) rt = root.size() - 1;
 		assert(0 <= rt && rt < (int)root.size());
@@ -66,16 +66,16 @@ public:
 };
 
 // fully persistent union find O(ƒ¿(N)*logN)
-class pUnionFind {
+class persistent_uf {
 	const int n;
-	pArray<int> data;
+	persistent_array<int> data;
 	vector<int> ver;
 	int find(int a, int v) {
 		int rt = data.get(a, ver[v]);
 		return rt < 0 ? a : find(rt, v);
 	}
 public:
-	pUnionFind(int n_) : n(n_), data(n_, -1) {
+	persistent_uf(int n_) : n(n_), data(n_, -1) {
 		ver.push_back(data.getversion());
 	}
 	bool same(int a, int b, int v = -1) {

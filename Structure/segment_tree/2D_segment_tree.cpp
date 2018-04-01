@@ -7,7 +7,7 @@ struct minQ {
 };
 
 template <typename M>
-class SegmentTree {
+class segment_tree {
 	using T = typename M::type;
 	const int n;
 	vector<T> data;
@@ -17,7 +17,7 @@ class SegmentTree {
 		return res;
 	}
 public:
-	SegmentTree(int n_) :
+	segment_tree(int n_) :
 		n(size(n_)), data(n * 2, M::id()) {}
 	void init(const vector<T>& data_) {
 		for (int i = 0; i < (int)data_.size(); i++)
@@ -52,18 +52,18 @@ public:
 
 // 2D segment tree
 template <typename M>
-class SegmentTree2 {
+class segment_tree2 {
 	using T = typename M::type;
 	const int h;
-	vector<SegmentTree<M>> data;
+	vector<segment_tree<M>> data;
 	int size(int n) {
 		int res;
 		for (res = 1; res < n; res <<= 1);
 		return res;
 	}
 public:
-	SegmentTree2(int h_, int w_) :
-		h(size(h_)), data(h * 2, SegmentTree<M>(w_)) {}
+	segment_tree2(int h_, int w_) :
+		h(size(h_)), data(h * 2, segment_tree<M>(w_)) {}
 	void init(const vector<vector<T>>& v) {
 		for (int i = 0; i < (int)v.size(); i++) data[i + h].init(v[i]);
 		int w = v.front().size();
@@ -106,7 +106,7 @@ int data[1 << 23];
 int v[1 << 20];
 
 template <typename T>
-class SegmentTree2 {
+class segment_tree2 {
 	using func_t = function<T(T, T)>;
 	const int h, w;
 	const T id;
@@ -127,7 +127,7 @@ class SegmentTree2 {
 		return merge(res1, res2);
 	}
 public:
-	SegmentTree2(int h_, int w_, T id_, func_t merge_) :
+	segment_tree2(int h_, int w_, T id_, func_t merge_) :
 		h(size(h_)), w(size(w_)), id(id_), merge(merge_) {
 		fill(data, data + (1 << 23), id);
 		for (int i = 0; i < h_; i++)

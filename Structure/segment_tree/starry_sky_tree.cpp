@@ -7,7 +7,7 @@ struct RMQ {
 };
 
 template <typename M>
-class StarrySkyTree {
+class starry_sky_tree {
 	using T = typename M::type;
 	const int n;
 	vector<T> data, lazy;
@@ -34,7 +34,7 @@ class StarrySkyTree {
 		data[node] = M::op(data[node << 1], data[(node << 1) | 1]) + lazy[node];
 	}
 public:
-	StarrySkyTree(int n_) : n(size(n_)), data(n << 1), lazy(n << 1) {}
+	starry_sky_tree(int n_) : n(size(n_)), data(n << 1), lazy(n << 1) {}
 	void add(int l, int r, T val) {
 		suc(l, r + 1, 1, 0, n, val);
 	}
@@ -62,7 +62,7 @@ public:
 };
 
 template <typename M>
-class StarrySkyTree {
+class starry_sky_tree {
 	using T = typename M::type;
 	const ll n;
 	node<M> *root;
@@ -90,7 +90,7 @@ class StarrySkyTree {
 		return n;
 	}
 public:
-	StarrySkyTree(ll n_) : n(size(n_)), root(nullptr) {}
+	starry_sky_tree(ll n_) : n(size(n_)), root(nullptr) {}
 	void add(ll l, ll r, T val) {
 		root = suc(l, r + 1, root, 0, n, val);
 	}

@@ -1,7 +1,7 @@
 
 // simple ver
 template <typename T>
-class RedBlackTree {
+class red_black_tree {
 
 	using COL = bool;
 	const static COL RED = false, BLACK = true;
@@ -123,7 +123,7 @@ class RedBlackTree {
 
 public:
 
-	RedBlackTree() : NIL(new node()), root(NIL) {}
+	red_black_tree() : NIL(new node()), root(NIL) {}
 	T find(int k) const {
 		return find(root, k)->val;
 	}
@@ -202,7 +202,7 @@ T op(T l, T r) {
 	return min(l, r);
 }
 
-class RedBlackTree {
+class red_black_tree {
 
 	using COL = bool;
 	const static COL RED = false, BLACK = true;
@@ -331,7 +331,7 @@ class RedBlackTree {
 
 public:
 
-	RedBlackTree() : NIL(new node()), root(NIL) {}
+	red_black_tree() : NIL(new node()), root(NIL) {}
 	node* find(int k) {
 		return find(root, k);
 	}
@@ -416,7 +416,7 @@ struct RMQ {
 };
 
 template <typename M>
-class RedBlackTree {
+class red_black_tree {
 
 	using T = typename M::type;
 	using COL = bool;
@@ -545,7 +545,7 @@ class RedBlackTree {
 
 public:
 
-	RedBlackTree() : NIL(new node()), root(NIL) {}
+	red_black_tree() : NIL(new node()), root(NIL) {}
 	node* find(int k) {
 		return find(root, k);
 	}

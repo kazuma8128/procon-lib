@@ -1,10 +1,10 @@
 
 template <typename T>
-class FenwickTree {
+class fenwick_tree {
 	const int n;
 	vector<T> data;
 public:
-	FenwickTree(int n_) : n(n_), data(n) {}
+	fenwick_tree(int n_) : n(n_), data(n) {}
 	T find(int p) const {
 		T res = 0;
 		while (p >= 0) {
@@ -23,11 +23,11 @@ public:
 
 // [l, r)
 template <typename T>
-class RARS {
+class range_add_range_sum {
 	const int n;
-	FenwickTree<T> bit0, bit1;
+	fenwick_tree<T> bit0, bit1;
 public:
-	RARS(int n_) : n(n_), bit0(n), bit1(n) {}
+	range_add_range_sum(int n_) : n(n_), bit0(n), bit1(n) {}
 	T find(int p) const {
 		return bit1.find(p) * (p + 1) + bit0.find(p);
 	}

@@ -1,6 +1,6 @@
 
 template <typename T>
-class Wavelet {
+class wavelet_tree {
 	int lo, N;
 	vector<vector<int>> mat;
 	vector<T> data;
@@ -24,7 +24,7 @@ class Wavelet {
 		}
 	}
 public:
-	Wavelet(const vector<T>& v, T inf) : lo(log2(v.size())), N(1 << lo), mat(lo, vector<int>(N)), data(v) {
+	wavelet_tree(const vector<T>& v, T inf) : lo(log2(v.size())), N(1 << lo), mat(lo, vector<int>(N)), data(v) {
 		int sz = v.size();
 		vector<pair<T, int>> state(N);
 		for (int i = 0; i < N; i++) {

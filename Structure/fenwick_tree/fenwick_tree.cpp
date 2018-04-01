@@ -1,10 +1,10 @@
 
 template <typename T>
-class FenwickTree {
+class fenwick_tree {
 	const int n;
 	vector<T> data;
 public:
-	FenwickTree(int n_) : n(n_), data(n) {}
+	fenwick_tree(int n_) : n(n_), data(n) {}
 	T find(int p) const {
 		T res = 0;
 		while (p >= 0) {

@@ -2,11 +2,11 @@
 using ll = long long;
 
 template <typename T>
-class DynamicFenwickTree {
+class dynamic_fenwick_tree {
 	const ll n;
 	unordered_map<ll, T> data;
 public:
-	DynamicFenwickTree(ll n_, int pmax = 1e5) : n(n_), data(pmax) {}
+	dynamic_fenwick_tree(ll n_, int pmax = 1e5) : n(n_), data(pmax) {}
 	T find(ll p) {
 		T res = 0;
 		while (p >= 0) {

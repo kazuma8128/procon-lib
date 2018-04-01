@@ -1,7 +1,7 @@
 
-const int N_MAX = 1e6;
+const int MAX = 1e6;
 
-const int B = sqrt(N_MAX);
+const int B = sqrt(MAX);
 
 struct query {
 	int l, r, id;

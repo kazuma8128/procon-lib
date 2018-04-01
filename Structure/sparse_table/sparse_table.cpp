@@ -1,13 +1,13 @@
 
 template <typename T>
-class SparseTable {
+class sparse_table {
 	int n;
 	vector<vector<T>> t;
 	T merge(const T& l, const T& r) {
 		return min(l, r);
 	}
 public:
-	SparseTable(const vector<T>& b) {
+	sparse_table(const vector<T>& b) {
 		n = b.size();
 		t.push_back(b);
 		for (int i = 2, j = 1; i <= n; i <<= 1, j++) {

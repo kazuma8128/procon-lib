@@ -20,7 +20,7 @@ struct node {
 node<ll> pool[PMAX];
 
 template <typename T>
-class SaikyoSegmentTree {
+class saikyo_segment_tree {
 	const ll n;
 	const T id;
 	int it;
@@ -63,7 +63,7 @@ class SaikyoSegmentTree {
 		return sub(getl(x), l, r, lb, c) + sub(getr(x), l, r, c, ub) + x->add * (min(r, ub) - max(l, lb));
 	}
 public:
-	SaikyoSegmentTree(ll n_, T id_) : n(size(n_)), id(id_), it(0) {
+	saikyo_segment_tree(ll n_, T id_) : n(size(n_)), id(id_), it(0) {
 		root.push_back(nullptr);
 	}
 	void add(ll l, ll r, T val, int rt = -1) {
@@ -109,7 +109,7 @@ public:
 };
 
 template <typename M>
-class SaikyoSegmentTree {
+class saikyo_segment_tree {
 	using T1 = typename M::t1;
 	using T2 = typename M::t2;
 	const ll n;
@@ -168,7 +168,7 @@ class SaikyoSegmentTree {
 		return t;
 	}
 public:
-	SaikyoSegmentTree(ll n_, int PMAX = 1e7)
+	saikyo_segment_tree(ll n_, int PMAX = 1e7)
 		: n(size(n_)), root(1, nullptr), pool(PMAX), it(0) {}
 	void update(ll l, ll r, T2 val, int rt = -1) {
 		if (rt == -1) rt = root.size() - 1;

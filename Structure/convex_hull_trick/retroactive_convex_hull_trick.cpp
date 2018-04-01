@@ -28,7 +28,7 @@ public:
 	}
 };
 template <typename T, const T id>
-class retroactive_CHT {
+class retroactive_cht {
 	struct line {
 		T a, b;
 		line(T a_ = 0, T b_ = 0) : a(a_), b(b_) {}
@@ -74,7 +74,7 @@ class retroactive_CHT {
 	}
 
 public:
-	retroactive_CHT(const vector<T>& pos_)
+	retroactive_cht(const vector<T>& pos_)
 		: n(pos_.size()), pos(pos_), data(n << 2, line(id, id)) {}
 	void insert(T a, T b) {
 		line l(a, b);

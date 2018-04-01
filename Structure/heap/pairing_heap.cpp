@@ -1,11 +1,11 @@
 
 // pairing heap
 template <typename T>
-struct node {
+struct h_node {
 	T val;
-	vector<node<T>*> chi;
-	node() : chi() {}
-	node(int v) : val(v), chi() {}
+	vector<h_node<T>*> chi;
+	h_node() : chi() {}
+	h_node(int v) : val(v), chi() {}
 	void init(int v) {
 		val = v;
 	}
@@ -18,7 +18,7 @@ struct node {
 };
 
 template <typename T>
-node<T>* merge(node<T>* a, node<T>* b) {
+h_node<T>* merge(h_node<T>* a, h_node<T>* b) {
 	if (a == nullptr) return b;
 	if (b == nullptr) return a;
 	if (a->val > b->val) swap(a, b);	// if maximum heap, change to <=
@@ -27,9 +27,9 @@ node<T>* merge(node<T>* a, node<T>* b) {
 }
 
 template <typename T>
-node<T>* sub_merge(const vector<node<T>*>& p) {
+h_node<T>* sub_merge(const vector<h_node<T>*>& p) {
 	int n = p.size();
-	vector<node<T>*> tmp;
+	vector<h_node<T>*> tmp;
 	for (int i = 0; i < n; i += 2) {
 		if (i + 1 < n) {
 			tmp.push_back(merge(p[i], p[i + 1]));
@@ -40,7 +40,7 @@ node<T>* sub_merge(const vector<node<T>*>& p) {
 	}
 	reverse(tmp.begin(), tmp.end());
 	n = tmp.size();
-	node<T> *res = tmp[0];
+	h_node<T> *res = tmp[0];
 	for (int i = 1; i < n; i++) {
 		res = merge(res, tmp[i]);
 	}

@@ -1,6 +1,6 @@
 
 template <typename M>
-class LazySegmentTree {
+class lazy_segment_tree {
 	using T1 = typename M::t1;
 	using T2 = typename M::t2;
 	const int h, n;
@@ -19,11 +19,11 @@ class LazySegmentTree {
 		data[node] = M::op1(M::op2(data[node * 2], lazy[node * 2]), M::op2(data[node * 2 + 1], lazy[node * 2 + 1]));
 	}
 public:
-	LazySegmentTree(int n_)
+	lazy_segment_tree(int n_)
 		: h(ceil(log2(n_))), n(1 << h), data(n * 2, M::id1()), lazy(n * 2, M::id2()) {}
-	LazySegmentTree(int n_, T1 v1)
+	lazy_segment_tree(int n_, T1 v1)
 		: h(ceil(log2(n_))), n(1 << h), data(n * 2, v1), lazy(n * 2, M::id2()) {}
-	LazySegmentTree(const vector<T1>& data_)
+	lazy_segment_tree(const vector<T1>& data_)
 		: h(ceil(log2(data_.size()))), n(1 << h), data(n * 2, M::id1()), lazy(n * 2, M::id2()) {
 		init(data_);
 	}

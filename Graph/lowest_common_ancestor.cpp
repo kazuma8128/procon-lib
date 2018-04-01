@@ -1,13 +1,13 @@
 
-// Euler Tour + Sparse Table ver
+// euler tour + sparse table ver
 using graph = vector<vector<int>>;
 
 template <typename T>
-class SparseTable {
+class sparse_table {
 	const int n, h;
 	vector<vector<T>> t;
 public:
-	SparseTable(const vector<T>& b)
+	sparse_table(const vector<T>& b)
 		: n(b.size()), h(31 - __builtin_clz(n)), t(h + 1, vector<T>(b.size())) {
 		t[0] = b;
 		for (int i = 0; i < h; i++)
@@ -20,10 +20,10 @@ public:
 	}
 };
 
-class LCA {
+class lowest_common_ancestor {
 	using pii = pair<int, int>;
 	vector<int> depth, id;
-	SparseTable<pii> st;
+	sparse_table<pii> st;
 	void dfs(int v, int prev, const graph& G, vector<pii>& res) {
 		depth[v] = prev != -1 ? depth[prev] + 1 : 0;
 		id[v] = res.size();
@@ -40,7 +40,7 @@ class LCA {
 		return res;
 	}
 public:
-	LCA(const graph& G, int rt = 0) : depth(G.size()), id(G.size()), st(init(G, rt)) {}
+	lowest_common_ancestor(const graph& G, int rt = 0) : depth(G.size()), id(G.size()), st(init(G, rt)) {}
 	int calc(int a, int b) {
 		if (id[a] > id[b]) swap(a, b);
 		return st.find(id[a], id[b] + 1).second;
@@ -50,8 +50,8 @@ public:
 	}
 };
 
-// HL-Decomposition ver
-class LCA {
+// HL-decomposition ver
+class lowest_common_ancestor {
 	using pii = pair<int, int>;
 	vector<int> depth, par, heavy, head;
 	int dfs(int v, int prev, const graph& G) {
@@ -69,7 +69,7 @@ class LCA {
 		return cnt;
 	}
 public:
-	LCA(const graph& G, int rt = 0)
+	lowest_common_ancestor(const graph& G, int rt = 0)
 		: depth(G.size()), par(G.size()), heavy(G.size(), -1), head(G.size()) {
 		dfs(rt, -1, G);
 		queue<int> q;

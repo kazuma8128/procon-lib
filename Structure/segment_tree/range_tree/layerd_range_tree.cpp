@@ -1,7 +1,7 @@
 
 // speed-up by fractional-cascading
 template <typename T>
-class LayerdRangeTree {
+class layerd_range_tree {
 	const int n;
 	vector<vector<T>> data;
 	vector<vector<pair<int, int>>> to;
@@ -37,7 +37,7 @@ class LayerdRangeTree {
 		to[node].emplace_back(ll, rl);
 	}
 public:
-	LayerdRangeTree(const vector<T>& data_) : n(size(data_.size())), data(n * 2), to(n) {
+	layerd_range_tree(const vector<T>& data_) : n(size(data_.size())), data(n * 2), to(n) {
 		for (int i = 0; i < (int)data_.size(); i++)
 			data[i + n].push_back(data_[i]);
 		for (int i = n - 1; i >= 1; i--) {

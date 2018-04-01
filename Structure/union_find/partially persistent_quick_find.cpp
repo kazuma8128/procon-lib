@@ -19,7 +19,7 @@ node<int> pool[PMAX];
 int it;
 
 template <typename T>
-class pArray {
+class persistent_array {
 	const int n;
 	const T id;
 	vector<node<T>*> root;
@@ -47,8 +47,8 @@ class pArray {
 		return p < c ? sub(x->l, p, lb, c) : sub(x->r, p, c, ub);
 	}
 public:
-	pArray(int n_, T id_ = 0) : n(size(n_)), id(id_), root(1, nullptr) {}
-	pArray(const vector<T>& v, T id_ = 0) : n(size(v.size())), id(id_), root(1, nullptr) {}
+	persistent_array(int n_, T id_ = 0) : n(size(n_)), id(id_), root(1, nullptr) {}
+	persistent_array(const vector<T>& v, T id_ = 0) : n(size(v.size())), id(id_), root(1, nullptr) {}
 	T update(int p, T val, int rt = -1) {
 		if (rt == -1) rt = root.size() - 1;
 		assert(0 <= rt && rt < (int)root.size());
@@ -66,12 +66,12 @@ public:
 };
 
 // partially persistent quick find
-class pQuickFind {
-	pArray<int> rt;
+class persistent_qf {
+	persistent_array<int> rt;
 	vector<int> ver;
 	vector<vector<int>> vs;
 public:
-	pQuickFind(int n) : rt(n), vs(n) {
+	persistent_qf(int n) : rt(n), vs(n) {
 		for (int i = 0; i < n; i++) rt.update(i, i), vs[i].push_back(i);
 		ver.push_back(rt.getversion());
 	}

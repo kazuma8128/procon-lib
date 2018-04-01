@@ -26,7 +26,7 @@ struct RMSQ {
 
 // segment tree
 template <typename M>
-class SegmentTree {
+class segment_tree {
 	using T = typename M::type;
 	const int n;
 	vector<T> data;
@@ -36,8 +36,8 @@ class SegmentTree {
 		return res;
 	}
 public:
-	SegmentTree(int n_) : n(size(n_)), data(n * 2, M::id()) {}
-	SegmentTree(int n_, T val) : n(size(n_)), data(n * 2, val) {}
+	segment_tree(int n_) : n(size(n_)), data(n * 2, M::id()) {}
+	segment_tree(int n_, T val) : n(size(n_)), data(n * 2, val) {}
 	void init(const vector<T>& data_) {
 		for (int i = 0; i < (int)data_.size(); i++)
 			data[i + n] = data_[i];

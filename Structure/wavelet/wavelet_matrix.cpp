@@ -1,10 +1,10 @@
 
-class FID {
+class fid {
 	int n;
 	vector<bool> data;
 	vector<int> ra, se0, se1;
 public:
-	FID(int n_) : n(n_), data(n), ra(n + 1) {}
+	fid(int n_) : n(n_), data(n), ra(n + 1) {}
 	void set(int i) {
 		data[i] = true;
 	}
@@ -34,7 +34,7 @@ template <typename T>
 class wavelet_matrix {
 	T h;
 	int n;
-	vector<FID> data;
+	vector<fid> data;
 	vector<int> mid;
 
 	T get_h(T val) {

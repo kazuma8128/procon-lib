@@ -1,5 +1,5 @@
 
-class HLD {
+class hld {
 	vector<vector<int>> G;
 	vector<int> vid, head, heavy, par, dep;
 	int dfs(int v, int prev) {
@@ -17,7 +17,7 @@ class HLD {
 		return cnt;
 	}
 public:
-	HLD(int n) : G(n), vid(n, -1), head(n), heavy(n, -1), par(n), dep(n) {}
+	hld(int n) : G(n), vid(n, -1), head(n), heavy(n, -1), par(n), dep(n) {}
 	void add(int u, int v) {
 		G[u].push_back(v);
 		G[v].push_back(u);

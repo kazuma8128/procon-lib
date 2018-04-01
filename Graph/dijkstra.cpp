@@ -3,17 +3,17 @@
 using Cost = int;
 const Cost INF = 2e9;
 
-struct Edge {
+struct edge {
 	int from, to;
 	Cost cost;
-	Edge() {}
-	Edge(int f, int t, Cost c) : from(f), to(t), cost(c) {}
+	edge() {}
+	edge(int f, int t, Cost c) : from(f), to(t), cost(c) {}
 };
 
-using Edges = vector<Edge>;
-using Graph = vector<Edges>;
+using edges = vector<edge>;
+using graph = vector<edges>;
 
-vector<Cost> Dijkstra(const Graph& G, int s) {
+vector<Cost> dijkstra(const graph& G, int s) {
 	int n = G.size();
 	vector<Cost> d(n, INF);
 	using pci = pair<Cost, int>;
@@ -33,9 +33,9 @@ vector<Cost> Dijkstra(const Graph& G, int s) {
 
 // class ver
 using Cost = int;
-const Cost inf = 1e9;
+const Cost INF = 1e9;
 
-class Dijkstra {
+class dijkstra {
 	struct edge {
 		int to;
 		Cost cost;
@@ -45,13 +45,13 @@ class Dijkstra {
 	vector<vector<edge>> G;
 	int V;
 public:
-	Dijkstra(int V_, bool isdir_ = true) : isdir(isdir_), V(V_), G(V_) {}
+	dijkstra(int V_, bool isdir_ = true) : isdir(isdir_), V(V_), G(V_) {}
 	void add(int a, int b, Cost c) {
 		G[a].emplace_back(b, c);
 		if (!isdir) G[b].emplace_back(a, c);
 	}
 	vector<Cost> calc(int s) {
-		vector<Cost> d(V, inf);
+		vector<Cost> d(V, INF);
 		using pci = pair<Cost, int>;
 		priority_queue<pci, vector<pci>, greater<pci>> q;
 		q.emplace(0, s);

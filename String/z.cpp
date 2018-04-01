@@ -1,5 +1,5 @@
 
-vector<int> Z_algo(const string& S) {
+vector<int> z_algo(const string& S) {
 	int N = S.size();
 	vector<int> A(N);
 	A[0] = N;

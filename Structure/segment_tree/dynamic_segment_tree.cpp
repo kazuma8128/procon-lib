@@ -20,7 +20,7 @@ public:
 };
 
 template <typename M>
-class DynamicSegmentTree {
+class dynamic_segment_tree {
 	using T = typename M::type;
 	const ll n;
 	node<T> *root;
@@ -46,9 +46,9 @@ class DynamicSegmentTree {
 		return t;
 	}
 public:
-	DynamicSegmentTree(ll n_) :
+	dynamic_segment_tree(ll n_) :
 		n(1 << (int)ceil(log2(n_))), root(nullptr) {}
-	~DynamicSegmentTree() {
+	~dynamic_segment_tree() {
 		if (root) delete root;
 	}
 	void update(ll p, T val) {

@@ -1,7 +1,7 @@
 ﻿
 // space complexity : O(max(cnt, √U))
 template <const int U = 1 << 30>
-class vEB {
+class van_emde_boas_tree {
 
 	const int ctz;
 
@@ -158,7 +158,7 @@ private:
 
 public:
 
-	vEB() : ctz(__builtin_ctz(U)), root(nullptr), cnt(0) {}
+	van_emde_boas_tree() : ctz(__builtin_ctz(U)), root(nullptr), cnt(0) {}
 
 	int size() const {
 		return cnt;
@@ -196,7 +196,7 @@ public:
 
 // space complexity : O(cnt)
 template <typename T = int, const T U = (T)1 << (T)30>
-class vEB {
+class van_emde_boas_tree {
 
 	const T ctz;
 
@@ -351,7 +351,7 @@ private:
 
 public:
 
-	vEB() : ctz(get_ctz(U)), root(nullptr), cnt(0) {}
+	van_emde_boas_tree() : ctz(get_ctz(U)), root(nullptr), cnt(0) {}
 
 	int size() const {
 		return cnt;

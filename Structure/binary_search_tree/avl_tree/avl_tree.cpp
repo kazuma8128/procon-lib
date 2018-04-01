@@ -1,7 +1,7 @@
 
 // insert/erase (set type)
 template <typename T>
-class AVL {
+class avl_tree {
 	struct node {
 		T val;
 		node *ch[2];

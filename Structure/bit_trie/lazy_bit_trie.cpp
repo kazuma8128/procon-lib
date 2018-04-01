@@ -2,7 +2,7 @@
 const int PMAX = 2e6;
 
 template<typename U = unsigned, const int B = 32>
-class Trie {
+class lazy_bit_trie {
 	struct node {
 		node *l, *r;
 		int cnt;
@@ -87,7 +87,7 @@ class Trie {
 		return ub(t->l, val, tmp, b - 1);
 	}
 public:
-	Trie() : root(nullptr), it(0), pool(PMAX) {}
+	lazy_bit_trie() : root(nullptr), it(0), pool(PMAX) {}
 	int size() {
 		return count(root);
 	}

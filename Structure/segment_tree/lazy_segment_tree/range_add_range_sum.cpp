@@ -1,6 +1,6 @@
 
 template <typename T>
-class RARS {
+class range_add_range_sum {
 	const int n;
 	const T id;
 	vector<T> data, data2;
@@ -27,7 +27,7 @@ class RARS {
 		suc(l, r, node * 2 + 1, (lb + ub) / 2, ub, val);
 	}
 public:
-	RARS(int n_) : n(size(n_)), id(0), data(n * 2, id), data2(n * 2, id) {}
+	range_add_range_sum(int n_) : n(size(n_)), id(0), data(n * 2, id), data2(n * 2, id) {}
 	void add(int l, int r, T val) {
 		suc(l, r + 1, 1, 0, n, val);
 	}

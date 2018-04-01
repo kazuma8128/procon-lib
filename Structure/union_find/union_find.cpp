@@ -1,12 +1,12 @@
 
 // rank ver
-class UnionFind {
+class union_find {
 	vector<int> par;
 	int find(int a) {
 		return par[a] < 0 ? a : par[a] = find(par[a]);
 	}
 public:
-	UnionFind(int n) : par(n, -1) {}
+	union_find(int n) : par(n, -1) {}
 	bool same(int a, int b) {
 		return find(a) == find(b);
 	}
@@ -21,14 +21,14 @@ public:
 };
 
 // rank ver, able to get size
-class UnionFind {
+class union_find {
 	vector<int> par;
 	vector<int> rank;
 	int find(int a) {
 		return par[a] < 0 ? a : par[a] = find(par[a]);
 	}
 public:
-	UnionFind(int n) : par(n, -1), rank(n, 1) {}
+	union_find(int n) : par(n, -1), rank(n, 1) {}
 	bool same(int a, int b) {
 		return find(a) == find(b);
 	}
@@ -52,13 +52,13 @@ public:
 };
 
 // size ver
-class UnionFind {
+class union_find {
 	vector<int> par;
 	int find(int a) {
 		return par[a] < 0 ? a : par[a] = find(par[a]);
 	}
 public:
-	UnionFind(int n) : par(n, -1) {}
+	union_find(int n) : par(n, -1) {}
 	bool same(int a, int b) {
 		return find(a) == find(b);
 	}

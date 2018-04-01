@@ -17,7 +17,7 @@ public:
 };
 
 template <typename M>
-class DynamicSegmentTree {
+class dynamic_segment_tree {
 	using T = typename M::type;
 	const ll n;
 	node<M> *root;
@@ -43,7 +43,7 @@ class DynamicSegmentTree {
 		return t;
 	}
 public:
-	DynamicSegmentTree(ll n_) :
+	dynamic_segment_tree(ll n_) :
 		n(1 << (int)ceil(log2(n_))), root(nullptr) {}
 	void update(ll p, T val) {
 		root = suc(p, root, 0, n, val);
@@ -57,13 +57,13 @@ template <typename M>
 class node2 {
 	using T = typename M::type;
 public:
-	DynamicSegmentTree<M> val;
+	dynamic_segment_tree<M> val;
 	node2<M> *l, *r;
 	node2(ll size) : val(size), l(nullptr), r(nullptr) {}
 };
 
 template <typename M>
-class DynamicSegmentTree2 {
+class dynamic_segment_tree2 {
 	using T = typename M::type;
 	const ll h, w;
 	node2<M> *root;
@@ -89,7 +89,7 @@ class DynamicSegmentTree2 {
 		return t;
 	}
 public:
-	DynamicSegmentTree2(ll h_, ll w_) :
+	dynamic_segment_tree2(ll h_, ll w_) :
 		h(1ll << (ll)ceil(log2(h_))), w(w_), root(nullptr) {}
 	void update(ll pi, ll pj, T val) {
 		root = suc(pi, pj, root, 0, h, val);

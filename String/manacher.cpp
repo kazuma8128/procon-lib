@@ -10,7 +10,7 @@ string doll(const string& S) {
 	return res;
 }
 
-vector<int> Manacher(const string& S) {
+vector<int> manacher(const string& S) {
 	int N = S.size();
 	vector<int> R(N + 1);
 	int i = 0, j = 0;
@@ -28,12 +28,12 @@ vector<int> Manacher(const string& S) {
 	return R;
 }
 
-class Palindrome {
+class palindrome {
 	int N;
 	vector<int> A;
 public:
-	Palindrome(const string& S) : N(S.size()), A(Manacher(doll(S))) {}
-	bool Is(int i, int j) {	// get whether S[i, j) is palindrome
+	Palindrome(const string& S) : N(S.size()), A(manacher(doll(S))) {}
+	bool is(int i, int j) {	// get whether S[i, j) is palindrome
 		assert(0 <= i && i < j && j <= N);
 		return A[i + j - 1] >= j - i;
 	}

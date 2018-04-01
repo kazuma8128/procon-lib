@@ -1,9 +1,9 @@
 
-class QuickFind {
+class quick_find {
 	vector<int> rt;
 	vector<vector<int>> vs;
 public:
-	QuickFind(int n) : rt(n), vs(n) {
+	quick_find(int n) : rt(n), vs(n) {
 		for (int i = 0; i < n; i++) rt[i] = i, vs[i].push_back(i);
 	}
 	bool same(int a, int b) {

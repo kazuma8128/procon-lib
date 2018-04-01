@@ -7,7 +7,7 @@ struct node {
 };
 
 template<typename U = unsigned, const int B = 32>
-class Trie {
+class bit_trie {
 	node *root;
 	int count(node *t) {
 		return t == nullptr ? 0 : t->cnt;
@@ -49,7 +49,7 @@ class Trie {
 		return t;
 	}
 public:
-	Trie() : root(nullptr) {}
+	bit_trie() : root(nullptr) {}
 	int size() {
 		return count(root);
 	}
@@ -137,10 +137,10 @@ struct node {
 };
 
 template<typename U = unsigned, const int B = 32>
-class Trie {
+class bit_trie {
 	node *root;
 public:
-	Trie() : root(new node(nullptr)) {}
+	bit_trie() : root(new node(nullptr)) {}
 	int size() {
 		return root->cnt;
 	}

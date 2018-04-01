@@ -74,7 +74,7 @@ public:
 };
 
 template <typename M>
-class DynamicLazySegmentTree {
+class dynamic_lazy_segment_tree {
 	using T = typename M::type;
 	const ll n;
 	node<T> *root;
@@ -123,7 +123,7 @@ class DynamicLazySegmentTree {
 		return M::op1(sub(l, r, t->l, lb, c), sub(l, r, t->r, c, ub));
 	}
 public:
-	DynamicLazySegmentTree(ll n_, int PMAX = 1e7)
+	dynamic_lazy_segment_tree(ll n_, int PMAX = 1e7)
 		: n(size(n_)), root(nullptr), pool(PMAX), it(0) {}
 	void update(ll l, ll r, T val) {
 		root = suc(l, r + 1, root, 0, n, val);

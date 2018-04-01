@@ -1,7 +1,7 @@
 
 // merge sort tree (?)
 template <typename T>
-class MergeTree {
+class merge_tree {
 	const int n;
 	vector<vector<T>> data;
 	int size(int n) {
@@ -13,7 +13,7 @@ class MergeTree {
 		return upper_bound(data[node].begin(), data[node].end(), val) - data[node].begin();
 	}
 public:
-	MergeTree(const vector<T>& data_) : n(size(data_.size())), data(n * 2) {
+	merge_tree(const vector<T>& data_) : n(size(data_.size())), data(n * 2) {
 		for (int i = 0; i < (int)data_.size(); i++)
 			data[i + n].push_back(data_[i]);
 		for (int i = n - 1; i >= 0; i--)
@@ -33,7 +33,7 @@ public:
 
 // a little generalized
 template <typename T>
-class MergeTree {
+class merge_tree {
 	const int n;
 	vector<vector<T>> data;
 	int size(int n) {
@@ -42,7 +42,7 @@ class MergeTree {
 		return res;
 	}
 public:
-	MergeTree(const vector<T>& data_) : n(size(data_.size())), data(n * 2) {
+	merge_tree(const vector<T>& data_) : n(size(data_.size())), data(n * 2) {
 		for (int i = 0; i < (int)data_.size(); i++) {
 			data[i + n].push_back(data_[i]);
 		}
@@ -64,7 +64,7 @@ public:
 
 // generalized, but slow
 template <typename T>
-class MergeTree {
+class merge_tree {
 	const int n;
 	vector<vector<T>> data;
 	int size(int n) {
@@ -73,7 +73,7 @@ class MergeTree {
 		return res;
 	}
 public:
-	MergeTree(const vector<T>& data_) : n(size(data_.size())), data(n * 2)
+	merge_tree(const vector<T>& data_) : n(size(data_.size())), data(n * 2)
 	{
 		for (int i = 0; i < (int)data_.size(); i++) {
 			data[i + n].push_back(data_[i]);

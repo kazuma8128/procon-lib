@@ -6,7 +6,7 @@ struct node {
 	node(node *l = nullptr, node *r = nullptr) : l(l), r(r), cnt(0) {}
 };
 
-class uint_PersistentTrie {
+class persistent_bit_trie {
 	vector<node*>root;
 	int count(node *t) {
 		return t == nullptr ? 0 : t->cnt;
@@ -49,7 +49,7 @@ class uint_PersistentTrie {
 		return t;
 	}
 public:
-	uint_PersistentTrie() : root(1, nullptr) {}
+	persistent_bit_trie() : root(1, nullptr) {}
 	int getversion() {
 		return root.size() - 1;
 	}

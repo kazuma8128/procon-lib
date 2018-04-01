@@ -1,52 +1,52 @@
 
 // normal ver
 template <typename T>
-struct Heap {
-	Heap *l, *r;
+struct h_node {
+	h_node *l, *r;
 	T val;
-	Heap() {}
-	Heap(int v) : l(nullptr), r(nullptr), val(v) {}
+	h_node() {}
+	h_node(int v) : l(nullptr), r(nullptr), val(v) {}
 	void init(int v) {
 		l = nullptr; r = nullptr; val = v;
 	}
 };
 
 template <typename T>
-Heap<T>* meld(Heap<T>* a, Heap<T>* b) {
+h_node<T>* meld(h_node<T>* a, h_node<T>* b) {
 	if (a == nullptr) return b;
 	if (b == nullptr) return a;
-	if (a->val < b->val) swap(a, b); // if minimum heap, >
+	if (a->val < b->val) swap(a, b); // if minimum h_node, >
 	a->r = meld(a->r, b);
 	swap(a->l, a->r);
 	return a;
 }
 
 template <typename T>
-Heap<T>* pop(Heap<T>* a) {
+h_node<T>* pop(h_node<T>* a) {
 	return meld(a->l, a->r);
 }
 
-Heap<int> pool[2000000];
+h_node<int> pool[2000000];
 int it;
 
 
 // class ver
 template <typename T>
-struct node {
-	node *l, *r;
+struct h_node {
+	h_node *l, *r;
 	T val;
-	node() {}
-	node(int v) : l(nullptr), r(nullptr), val(v) {}
+	h_node() {}
+	h_node(int v) : l(nullptr), r(nullptr), val(v) {}
 	init(int v) {
 		l = nullptr; r = nullptr; val = v;
 	}
 };
 
-node<int> pool[2000000];
+h_node<int> pool[2000000];
 int it;
-class Priority_Queue {
-	node<int>* root;
-	node<int>* meld(node<int>* a, node<int>* b) {
+class skew_heap {
+	h_node<int>* root;
+	h_node<int>* meld(h_node<int>* a, h_node<int>* b) {
 		if (a == nullptr) return b;
 		if (b == nullptr) return a;
 		if (a->val < b->val) swap(a, b); // if minimum heap, >
@@ -54,11 +54,11 @@ class Priority_Queue {
 		swap(a->l, a->r);
 		return a;
 	}
-	node<int>* pop_(node<int>* a) {
+	h_node<int>* pop_(h_node<int>* a) {
 		return meld(a->l, a->r);
 	}
 public:
-	Priority_Queue() : root(nullptr) {}
+	skew_heap() : root(nullptr) {}
 	void push(int val) {
 		pool[it].init(val);
 		root = meld(root, &pool[it++]);
@@ -69,7 +69,7 @@ public:
 	void pop() {
 		root = pop_(root);
 	}
-	void meld(node<int>* a) {
+	void meld(h_node<int>* a) {
 		root = meld(root, a);
 	}
 	void clear() {

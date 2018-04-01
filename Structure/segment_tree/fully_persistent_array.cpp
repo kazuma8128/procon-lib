@@ -18,7 +18,7 @@ struct node {
 node<int> pool[PMAX];
 
 template <typename T>
-class PersistentArray {
+class persistent_array {
 	const int n;
 	int it;
 	const T id;
@@ -47,14 +47,14 @@ class PersistentArray {
 		return sub(x->r, p, c, ub);
 	}
 public:
-	PersistentArray(int n_, T id_ = 0) : n(size(n_)), id(id_) {
+	persistent_array(int n_, T id_ = 0) : n(size(n_)), id(id_) {
 		for (int i = 1; i < n * 2; i++) {
 			pool[i - 1].init(id, i < n ? &(pool[i * 2 - 1]) : nullptr, i < n ? &(pool[i * 2]) : nullptr);
 		}
 		it = n * 2 - 1;
 		root.push_back(&pool[0]);
 	}
-	PersistentArray(const vector<T>& v, T id_ = 0) : n(size(v.size())), id(id_) {
+	persistent_array(const vector<T>& v, T id_ = 0) : n(size(v.size())), id(id_) {
 		it = 0;
 		for (int i = n * 2 - 1; i > 0; i--) {
 			if (i >= n && i - n < (int)v.size()) {

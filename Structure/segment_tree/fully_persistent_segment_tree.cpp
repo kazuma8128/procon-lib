@@ -8,7 +8,7 @@ struct RMQ {
 const int PMAX = 1e7;
 
 template <typename M>
-class PersistentSegmentTree {
+class persistent_segment_tree {
 	using T = typename M::type;
 	struct node {
 		T val;
@@ -55,7 +55,7 @@ class PersistentSegmentTree {
 		return M::op(sub(x->l, l, r, lb, c), sub(x->r, l, r, c, ub));
 	}
 public:
-	PersistentSegmentTree(int n_) : n(size(n_)), pool(PMAX), it(0) {
+	persistent_segment_tree(int n_) : n(size(n_)), pool(PMAX), it(0) {
 		root.push_back(nullptr);
 	}
 	void update(int p, T val, int rt = -1) {

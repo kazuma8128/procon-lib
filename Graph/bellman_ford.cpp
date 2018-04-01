@@ -34,7 +34,7 @@ vector<C> bellman_ford(const graph& G, int s) {
 
 // class ver
 template <typename C, const C inf>
-class Bellman_Ford {
+class bellman_ford {
 	struct edge {
 		int from, to;
 		C cost;
@@ -45,7 +45,7 @@ class Bellman_Ford {
 	vector<C> d;
 	int V;
 public:
-	Bellman_Ford(int _V, bool _isdirected = true) : isdir(_isdirected), V(_V), d(_V) { }
+	bellman_ford(int _V, bool _isdirected = true) : isdir(_isdirected), V(_V), d(_V) { }
 	void add(int a, int b, C c) {
 		es.emplace_back(a, b, c);
 		if (!isdir) es.emplace_back(b, a, c);

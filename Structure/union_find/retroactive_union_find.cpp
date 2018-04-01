@@ -28,10 +28,10 @@ public:
 	}
 };
 
-class retroactive_UF {
+class retroactive_uf {
 	retroactive_array<int> data;
 public:
-	retroactive_UF(int n) : data(n, -1) {}
+	retroactive_uf(int n) : data(n, -1) {}
 	int find(int a) const {
 		return data[a] < 0 ? a : find(data[a]);
 	}

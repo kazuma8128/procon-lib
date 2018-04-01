@@ -1,5 +1,5 @@
 
-vector<int> MP(const string& S) {
+vector<int> morris_pratt(const string& S) {
 	int N = S.size();
 	vector<int> A(N + 1);
 	A[0] = -1;
@@ -13,7 +13,7 @@ vector<int> MP(const string& S) {
 	return A;
 }
 
-vector<int> KMP(const string& S) {
+vector<int> knuth_morris_pratt(const string& S) {
 	int N = S.size();
 	vector<int> A(N + 1);
 	A[0] = -1;
@@ -27,8 +27,8 @@ vector<int> KMP(const string& S) {
 	return A;
 }
 
-vector<int> StringSearch(const string& S, const string& T) {
-	auto A = KMP(T);
+vector<int> string_search(const string& S, const string& T) {
+	auto A = knuth_morris_pratt(T);
 	int N = T.size();
 	vector<int> res;
 	for (int i = 0, j = 0; i < (int)S.size(); i++) {

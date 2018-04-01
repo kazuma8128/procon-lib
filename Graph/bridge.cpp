@@ -12,12 +12,11 @@ void add_edge(graph& G, int f, int t) {
 	G[t].emplace_back(t, f);
 }
 
-pair<vector<int>, edges> bridge(const graph& G) {
+vector<int> tcc(const graph& G) {
 	const int n = G.size();
 	int idx = 0, t = 0, k = 0;
 	vector<int> ord(n, -1), stk, roots(n), cmp(n);
 	vector<bool> onS(n);
-	edges brdg;
 	function<void(int, int)> dfs = [&](int v, int u) {
 		ord[v] = idx++;
 		stk.push_back(v);
@@ -30,7 +29,6 @@ pair<vector<int>, edges> bridge(const graph& G) {
 				while (ord[roots[t - 1]] > ord[w]) --t;
 		}
 		if (v == roots[t - 1]) {
-			brdg.emplace_back(u, v);
 			while (true) {
 				int w = stk.back(); stk.pop_back();
 				onS[w] = false;
@@ -42,10 +40,7 @@ pair<vector<int>, edges> bridge(const graph& G) {
 		}
 	};
 	for (int u = 0; u < n; ++u) {
-		if (ord[u] == -1) {
-			dfs(u, -1);
-			brdg.pop_back();
-		}
+		if (ord[u] == -1) dfs(u, -1);
 	}
-	return make_pair(cmp, brdg);
+	return cmp;
 }

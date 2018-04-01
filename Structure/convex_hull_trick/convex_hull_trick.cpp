@@ -4,7 +4,7 @@
 // 最初にクエリの値を全列挙できる状況でのみ使える
 
 template <typename T, const T id>
-class CHT {
+class convex_hull_trick {
 	struct line {
 		T a, b;
 		line(T a_ = 0, T b_ = 0) : a(a_), b(b_) {}
@@ -41,7 +41,7 @@ class CHT {
 		return max(p->l.get(pos[t]), sub(p->rch, c, ub, t));
 	}
 public:
-	CHT(const vector<T>& pos_) : n(pos_.size()), pos(pos_), root(nullptr) {}
+	convex_hull_trick(const vector<T>& pos_) : n(pos_.size()), pos(pos_), root(nullptr) {}
 	void insert(T a, T b) {
 		line l(a, b);
 		root = modify(root, 0, n, l);
@@ -73,7 +73,7 @@ struct Line {
 	}
 };
 
-class CHT : public multiset<Line> {
+class convex_hull_trick : public multiset<Line> {
 	bool bad(iterator y) {
 		auto z = next(y);
 		if (y == begin()) {
@@ -101,7 +101,7 @@ public:
 
 // ちょっと早くした Li Chao Segment Tree ver
 template <typename T, const T id>
-class CHT {
+class convex_hull_trick {
 	struct line {
 		T a, b;
 		line(T a_ = 0, T b_ = 0) : a(a_), b(b_) {}
@@ -143,7 +143,7 @@ class CHT {
 	}
 
 public:
-	CHT(const vector<T>& pos_) : n(pos_.size()), pos(pos_), data(n << 2, line(id, id)) {}
+	convex_hull_trick(const vector<T>& pos_) : n(pos_.size()), pos(pos_), data(n << 2, line(id, id)) {}
 	void insert(T a, T b) {
 		line l(a, b);
 		modify(1, 0, n, l);

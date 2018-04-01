@@ -16,7 +16,7 @@ node* getnext(node* p, char c) {
 	return p->next[trans(c)];
 }
 
-class Aho_Corasick {
+class aho_corasick {
 	vector<int> unite(const vector<int>& a, const vector<int>& b) {
 		vector<int> res;
 		set_union(a.begin(), a.end(), b.begin(), b.end(), back_inserter(res));
@@ -25,7 +25,7 @@ class Aho_Corasick {
 	int K;
 	node *root;
 public:
-	Aho_Corasick(const vector<string>& Ts) : K(Ts.size()), root(new node) {
+	aho_corasick(const vector<string>& Ts) : K(Ts.size()), root(new node) {
 		node *now;
 		root->fail = root;
 		for (int i = 0; i < K; i++) {

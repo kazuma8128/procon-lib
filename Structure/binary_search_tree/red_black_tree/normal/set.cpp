@@ -1,6 +1,6 @@
 
 template <typename T>
-class RedBlackTree {
+class red_black_tree {
 
 	using COL = bool;
 	static const COL RED = false, BLACK = true;
@@ -119,7 +119,7 @@ class RedBlackTree {
 		return x;
 	}
 public:
-	RedBlackTree() : NIL(new node()), root(NIL) {}
+	red_black_tree() : NIL(new node()), root(NIL) {}
 	int size() const {
 		return root->size;
 	}
