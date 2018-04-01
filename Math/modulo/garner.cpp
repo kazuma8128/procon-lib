@@ -39,11 +39,11 @@ vector<pair<ll, int>> factorize(ll n) {
 	return res;
 }
 
-class garner {
+class chinese_remainder_theorem {
 	bool ng;
 	map<ll, pair<int, ll>> facts;
 public:
-	garner() : ng(false) {}
+	chinese_remainder_theorem() : ng(false) {}
 	void add(ll x, ll m) {
 		if (ng) return;
 		for (auto& p : factorize(m)) {
@@ -61,7 +61,7 @@ public:
 			}
 		}
 	}
-	int solve(int md) const {
+	int garner(int md) const {
 		if (ng) return -1;
 		bool zero = true;
 		vector<pair<ll, ll>> mr;

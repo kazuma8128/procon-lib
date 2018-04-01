@@ -28,7 +28,6 @@ class max_flow {
 			}
 		}
 	}
-
 	int DFS(int v, int t, int f) {
 		if (v == t) return f;
 		for (int &i = iter[v]; i < (int)G[v].size(); i++) {
@@ -44,14 +43,13 @@ class max_flow {
 		}
 		return 0;
 	}
-
 public:
 	max_flow(int _V) : V(_V), G(_V), level(_V), iter(_V) {}
 	void add(int from, int to, int cap) {
 		G[from].push_back(edge(to, cap, G[to].size()));
 		G[to].push_back(edge(from, 0, G[from].size() - 1));
 	}
-	int Dinic(int s, int t) {
+	int dinic(int s, int t) {
 		int flow = 0;
 		while (true) {
 			BFS(s);

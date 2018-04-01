@@ -28,10 +28,10 @@ public:
 	}
 };
 
-class retroactive_UF {
+class retroactive_uf {
 	retroactive_array<int> data;
 public:
-	retroactive_UF(int n) : data(n, -1) {}
+	retroactive_uf(int n) : data(n, -1) {}
 	int find(int a) const {
 		return data[a] < 0 ? a : find(data[a]);
 	}
@@ -67,7 +67,7 @@ class dynamic_connectivity {
 		while (res < x) res <<= 1;
 		return res;
 	}
-	void sub(int node, vector<int>& res, retroactive_UF& uuf) {
+	void sub(int node, vector<int>& res, retroactive_uf& uuf) {
 		int ver = uuf.get_version();
 		for (auto& p : data[node]) uuf.unite(p.first, p.second);
 		if (node >= n) {
@@ -97,7 +97,7 @@ public:
 	}
 	vector<int> calc() {
 		vector<int> res;
-		retroactive_UF uuf(v);
+		retroactive_uf uuf(v);
 		sub(1, res, uuf);
 		return res;
 	}

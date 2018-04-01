@@ -1,5 +1,5 @@
 
-class hld {
+class heavy_light_decomposition {
 	vector<vector<int>> G;
 	vector<int> vid, head, heavy, par, dep;
 	int dfs(int v, int prev) {
@@ -17,7 +17,7 @@ class hld {
 		return cnt;
 	}
 public:
-	hld(int n) : G(n), vid(n, -1), head(n), heavy(n, -1), par(n), dep(n) {}
+	heavy_light_decomposition(int n) : G(n), vid(n, -1), head(n), heavy(n, -1), par(n), dep(n) {}
 	void add(int u, int v) {
 		G[u].push_back(v);
 		G[v].push_back(u);
