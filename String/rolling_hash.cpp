@@ -37,36 +37,32 @@ public:
 };
 
 // two-dimensional
+using ull = unsigned long long;
+
 bool rolling_hash2(int pll, int Q, const vector<vector<char>>& a, vector<vector<ull>>& res) {
 	const ull B1 = 9973;
 	const ull B2 = 100000007;
-	if (a.size() < pll || a[0].size() < Q) return false;
+	if ((int)a.size() < pll || (int)a[0].size() < Q) return false;
 	vector<vector<ull>> tmp(a.size(), vector<ull>(a[0].size() - Q + 1));
 	res = vector<vector<ull>>(a.size() - pll + 1, vector<ull>(a[0].size() - Q + 1));
-
 	ull t1 = 1;
 	for (int j = 0; j < Q; j++) t1 *= B1;
-
-	for (int i = 0; i < a.size(); i++) {
+	for (int i = 0; i < (int)a.size(); i++) {
 		ull e = 0;
 		for (int j = 0; j < Q; j++) e = e * B1 + a[i][j];
-
-		for (int j = 0; j + Q <= a[0].size(); j++) {
+		for (int j = 0; j + Q <= (int)a[0].size(); j++) {
 			tmp[i][j] = e;
-			if (j + Q < a[0].size()) e = e * B1 - t1 * a[i][j] + a[i][j + Q];
+			if (j + Q < (int)a[0].size()) e = e * B1 - t1 * a[i][j] + a[i][j + Q];
 		}
 	}
-
 	ull t2 = 1;
 	for (int i = 0; i < pll; i++) t2 *= B2;
-
-	for (int j = 0; j + Q <= a[0].size(); j++) {
+	for (int j = 0; j + Q <= (int)a[0].size(); j++) {
 		ull e = 0;
 		for (int i = 0; i < pll; i++) e = e * B2 + tmp[i][j];
-
-		for (int i = 0; i + pll <= a.size(); i++) {
+		for (int i = 0; i + pll <= (int)a.size(); i++) {
 			res[i][j] = e;
-			if (i + pll < a.size()) e = e * B2 - t2 * tmp[i][j] + tmp[i + pll][j];
+			if (i + pll < (int)a.size()) e = e * B2 - t2 * tmp[i][j] + tmp[i + pll][j];
 		}
 	}
 	return true;
