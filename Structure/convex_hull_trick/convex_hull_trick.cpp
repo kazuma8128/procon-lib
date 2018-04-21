@@ -20,8 +20,8 @@ class convex_hull_trick {
 	node *root;
 	node* modify(node *p, int lb, int ub, line& l) {
 		if (!p) return new node(l);
-		if (p->l.get(pos[lb]) >= l.get(pos[lb]) && p->l.get(pos[ub - 1]) >= l.get(pos[ub - 1])) return p;
-		if (p->l.get(pos[lb]) <= l.get(pos[lb]) && p->l.get(pos[ub - 1]) <= l.get(pos[ub - 1])) {
+		if (p->l.get(pos[lb]) >= l.get(pos[lb]) && p->l.get(pos[ub]) >= l.get(pos[ub])) return p;
+		if (p->l.get(pos[lb]) <= l.get(pos[lb]) && p->l.get(pos[ub]) <= l.get(pos[ub])) {
 			p->l = l;
 			return p;
 		}
@@ -30,26 +30,26 @@ class convex_hull_trick {
 		if (p->l.get(pos[lb]) <= l.get(pos[lb]))
 			p->lch = modify(p->lch, lb, c, l);
 		else
-			p->rch = modify(p->rch, c, ub, l);
+			p->rch = modify(p->rch, c + 1, ub, l);
 		return p;
 	}
 	T sub(node *p, int lb, int ub, int t) const {
 		if (!p) return id;
-		if (ub - lb == 1) return p->l.get(pos[t]);
+		if (ub - lb == 0) return p->l.get(pos[t]);
 		int c = (lb + ub) / 2;
-		if (t < c) return max(p->l.get(pos[t]), sub(p->lch, lb, c, t));
-		return max(p->l.get(pos[t]), sub(p->rch, c, ub, t));
+		if (t <= c) return max(p->l.get(pos[t]), sub(p->lch, lb, c, t));
+		return max(p->l.get(pos[t]), sub(p->rch, c + 1, ub, t));
 	}
 public:
 	convex_hull_trick(const vector<T>& pos_) : n(pos_.size()), pos(pos_), root(nullptr) {}
 	void insert(T a, T b) {
 		line l(a, b);
-		root = modify(root, 0, n, l);
+		root = modify(root, 0, n - 1, l);
 	}
 	T get(T x) const {
 		int t = lower_bound(pos.begin(), pos.end(), x) - pos.begin();
 		assert(t < n && pos[t] == x);
-		return sub(root, 0, n, t);
+		return sub(root, 0, n - 1, t);
 	}
 };
 
@@ -112,18 +112,16 @@ class convex_hull_trick {
 		node *lch, *rch;
 		node(line l_) : l(l_), lch(nullptr), rch(nullptr) {}
 	};
-
 	const int n;
 	const vector<T> pos;
 	vector<line> data;
-
 	void modify(int p, int lb, int ub, line& l) {
 		if (data[p].a == id) {
 			data[p] = l;
 			return;
 		}
-		if (data[p].get(pos[lb]) >= l.get(pos[lb]) && data[p].get(pos[ub - 1]) >= l.get(pos[ub - 1])) return;
-		if (data[p].get(pos[lb]) <= l.get(pos[lb]) && data[p].get(pos[ub - 1]) <= l.get(pos[ub - 1])) {
+		if (data[p].get(pos[lb]) >= l.get(pos[lb]) && data[p].get(pos[ub]) >= l.get(pos[ub])) return;
+		if (data[p].get(pos[lb]) <= l.get(pos[lb]) && data[p].get(pos[ub]) <= l.get(pos[ub])) {
 			data[p] = l;
 			return;
 		}
@@ -132,25 +130,24 @@ class convex_hull_trick {
 		if (data[p].get(pos[lb]) <= l.get(pos[lb]))
 			modify(p << 1, lb, c, l);
 		else
-			modify((p << 1) | 1, c, ub, l);
+			modify((p << 1) | 1, c + 1, ub, l);
 	}
 	T sub(int p, int lb, int ub, int t) const {
 		if (data[p].a == id) return id;
-		if (ub - lb == 1) return data[p].get(pos[t]);
+		if (ub - lb == 0) return data[p].get(pos[t]);
 		int c = (lb + ub) >> 1;
-		if (t < c) return max(data[p].get(pos[t]), sub(p << 1, lb, c, t));
-		return max(data[p].get(pos[t]), sub((p << 1) | 1, c, ub, t));
+		if (t <= c) return max(data[p].get(pos[t]), sub(p << 1, lb, c, t));
+		return max(data[p].get(pos[t]), sub((p << 1) | 1, c + 1, ub, t));
 	}
-
 public:
 	convex_hull_trick(const vector<T>& pos_) : n(pos_.size()), pos(pos_), data(n << 2, line(id, id)) {}
 	void insert(T a, T b) {
 		line l(a, b);
-		modify(1, 0, n, l);
+		modify(1, 0, n - 1, l);
 	}
 	T get(T x) const {
 		int t = lower_bound(pos.begin(), pos.end(), x) - pos.begin();
 		assert(t < n && pos[t] == x);
-		return sub(1, 0, n, t);
+		return sub(1, 0, n - 1, t);
 	}
 };
