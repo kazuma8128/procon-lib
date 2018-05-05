@@ -32,14 +32,14 @@ class lazy_binary_trie {
 		t->ch[f] = sub(t->ch[f], val, b - 1);
 		return t;
 	}
-	U get_min(node* t, U val, int b = B - 1) const {
+	U get_min(node* t, U val, int b = B - 1) {
 		assert(t);
 		if (b < 0) return 0;
 		push(t, b);
 		bool f = (val >> (U)b) & (U)1; f ^= !t->ch[f];
 		return get_min(t->ch[f], val, b - 1) | ((U)f << (U)b);
 	}
-	U get(node* t, int k, int b = B - 1) const {
+	U get(node* t, int k, int b = B - 1) {
 		if (b < 0) return 0;
 		push(t, b);
 		int m = t->ch[0] ? t->ch[0]->cnt : 0;
@@ -69,10 +69,10 @@ public:
 	void xor_all(U val) {
 		if (root) root->lazy ^= val;
 	}
-	U max_element(U bias = 0) const {
+	U max_element(U bias = 0) {
 		return get_min(root, ~bias);
 	}
-	U min_element(U bias = 0) const {
+	U min_element(U bias = 0) {
 		return get_min(root, bias);
 	}
 	int lower_bound(U val) { // return id
@@ -81,11 +81,11 @@ public:
 	int upper_bound(U val) { // return id
 		return count_lower(root, val + 1);
 	}
-	U operator[](int k) const {
+	U operator[](int k) {
 		assert(0 <= k && k < size());
 		return get(root, k);
 	}
-	int count(U val) const {
+	int count(U val) {
 		if (!root) return 0;
 		node *t = root;
 		for (int i = B - 1; i >= 0; i--) {
