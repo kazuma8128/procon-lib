@@ -5,18 +5,6 @@ using pii = pair<int, int>;
 const ll mod = 1e9 + 7;
 const ll b1 = 1009, b2 = 10007;
 
-ll power(ll a, ll b) {
-	ll res = 1; a %= mod;
-	while (b) {
-		if (b & 1) {
-			res = (res * a) % mod;
-		}
-		a = (a * a) % mod;
-		b >>= 1;
-	}
-	return res;
-}
-
 class rolling_hash {
 	const int n;
 	string s;
