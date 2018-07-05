@@ -107,11 +107,6 @@ class convex_hull_trick {
 		line(T a_ = 0, T b_ = 0) : a(a_), b(b_) {}
 		T get(T x) const { return a * x + b; }
 	};
-	struct node {
-		line l;
-		node *lch, *rch;
-		node(line l_) : l(l_), lch(nullptr), rch(nullptr) {}
-	};
 	const int n;
 	const vector<T> pos;
 	vector<line> data;
