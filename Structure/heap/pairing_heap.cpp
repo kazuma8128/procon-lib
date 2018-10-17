@@ -1,48 +1,57 @@
 
-// pairing heap
 template <typename T>
-struct h_node {
-	T val;
-	vector<h_node<T>*> chi;
-	h_node() : chi() {}
-	h_node(int v) : val(v), chi() {}
-	void init(int v) {
-		val = v;
+class pairing_heap {
+	struct node {
+		T val;
+		vector<node*> chi;
+		node(T v) : val(v) {}
+	};
+	node* meld(node* a, node* b) {
+		if (!a) return b;
+		if (!b) return a;
+		if (a->val < b->val) swap(a, b); // min heap : >
+		a->chi.push_back(b);
+		return a;
 	}
-	void erase() {
-		for (auto p : chi) {
-			p->erase();
-			delete p;
+	node* sub_meld(const vector<node*>& p) {
+		if (p.empty()) return nullptr;
+		int n = p.size();
+		vector<node*> tmp;
+		for (int i = 0; i < n; i += 2) {
+			if (i + 1 < n) {
+				tmp.push_back(meld(p[i], p[i + 1]));
+			}
+			else {
+				tmp.push_back(p[i]);
+			}
 		}
+		reverse(tmp.begin(), tmp.end());
+		n = tmp.size();
+		node *res = tmp[0];
+		for (int i = 1; i < n; i++) {
+			res = meld(res, tmp[i]);
+		}
+		return res;
+	}
+	node *root;
+public:
+	pairing_heap() : root(nullptr) {}
+	T top() const {
+		return root->val;
+	}
+	bool empty() const {
+		return !root;
+	}
+	void pop() {
+		node *tmp = sub_meld(root->chi);
+		delete root;
+		root = tmp;
+	}
+	void push(T val) {
+		root = meld(root, new node(val));
+	}
+	void meld(pairing_heap<T>& that) {
+		root = meld(root, that.root);
+		that.root = nullptr;
 	}
 };
-
-template <typename T>
-h_node<T>* merge(h_node<T>* a, h_node<T>* b) {
-	if (a == nullptr) return b;
-	if (b == nullptr) return a;
-	if (a->val > b->val) swap(a, b);	// if maximum heap, change to <=
-	a->chi.push_back(b);
-	return a;
-}
-
-template <typename T>
-h_node<T>* sub_merge(const vector<h_node<T>*>& p) {
-	int n = p.size();
-	vector<h_node<T>*> tmp;
-	for (int i = 0; i < n; i += 2) {
-		if (i + 1 < n) {
-			tmp.push_back(merge(p[i], p[i + 1]));
-		}
-		else {
-			tmp.push_back(p[i]);
-		}
-	}
-	reverse(tmp.begin(), tmp.end());
-	n = tmp.size();
-	h_node<T> *res = tmp[0];
-	for (int i = 1; i < n; i++) {
-		res = merge(res, tmp[i]);
-	}
-	return res;
-}
