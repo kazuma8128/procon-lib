@@ -1,5 +1,5 @@
 ﻿
-// space complexity : O(max(cnt, √U))
+// space complexity : O(min(U, cnt * √U))
 template <const int U = 1 << 30>
 class van_emde_boas_tree {
 
