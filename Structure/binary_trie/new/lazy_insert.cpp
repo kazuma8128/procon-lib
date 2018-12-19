@@ -27,7 +27,7 @@ class binary_trie {
 		if (t->cnt == t->sum) return t->pos ^ bias;
 		bool f = (bias >> (U)b) & (U)1;
 		if (!t->ch[f] || !t->ch[f]->sum) f = !f;
-		int res = get_min(t->ch[f], bias, b - 1);
+		U res = get_min(t->ch[f], bias, b - 1);
 		if (t->cnt) res = min(res, t->pos ^ bias);
 		return res;
 	}
