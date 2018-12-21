@@ -29,6 +29,19 @@ struct mod_int {
 	}
 };
 
+template<int MOD>
+istream& operator >> (istream& is, mod_int<MOD>& val) {
+	long long x;
+	is >> x; val = x;
+	return is;
+}
+
+template<int MOD>
+ostream& operator << (ostream& os, const mod_int<MOD>& val) {
+	os << val.get();
+	return os;
+}
+
 using mint = mod_int<1000000007>;
 
 const int MAX = 2e6;
