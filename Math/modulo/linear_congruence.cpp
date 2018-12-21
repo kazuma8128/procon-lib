@@ -28,23 +28,3 @@ T linear_congruence(const vector<pair<T, T>>& cs) { // x % B = A
 	}
 	return x;
 }
-
-
-
-// x * A % C = B
-template <typename T>
-pair<T, T> linear_congruence(const vector<tuple<T, T, T>>& cs) {
-	T x = 0, m = 1;
-	for (auto cc : cs) {
-		T A, B, C;
-		tie(A, B, C) = cc;
-		T a = A * m, b = B - A * x, d = __gcd(C, a);
-		if (b % d != 0) return make_pair(0, -1);
-		a /= d; b /= d; C /= d;
-		T t = b * mod_inv(a, C) % C;
-		if (t < 0) t += C;
-		x += t * m;
-		m *= C;
-	}
-	return make_pair(x, m);
-}
