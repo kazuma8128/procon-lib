@@ -13,7 +13,7 @@ T mod_inv(T a, T md) {
 }
 
 template <typename T>
-T linear_congruence(const vector<pair<T, T>>& cs) { // x % A = B
+T linear_congruence(const vector<pair<T, T>>& cs) { // x % B = A
 	T x = 0, m = 1;
 	for (auto cc : cs) {
 		T A, B;
@@ -31,7 +31,7 @@ T linear_congruence(const vector<pair<T, T>>& cs) { // x % A = B
 
 
 
-// x * A % B = C
+// x * A % C = B
 template <typename T>
 pair<T, T> linear_congruence(const vector<tuple<T, T, T>>& cs) {
 	T x = 0, m = 1;
